@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LernKraft — Onboarding und Prozesswissen, das im Unternehmen bleibt</title>
+<meta name="description" content="Neue Mitarbeitende einarbeiten, Prozesse dokumentieren und Wissen zugänglich machen. Mit KI-Assistent, in 15 Minuten startklar, Hosting in Deutschland.">
+<style>
+  :root {
+    --paper: #FBF9F4;
+    --paper-raised: #F3EFE4;
+    --ink: #1C1917;
+    --ink-soft: #3D3733;
+    --steel: #6B6862;
+    --steel-light: #948F86;
+    --rust: #C1502E;
+    --rust-deep: #9C3E22;
+    --teal: #0F4C4C;
+    --teal-soft: #16665F;
+    --line: #E1DACB;
+    --line-strong: #C9C0AB;
+    --good: #2F6B3A;
+    --warn: #B4791E;
+    --card-shadow: 0 1px 0 rgba(28,25,23,0.05);
+    --radius: 3px;
+    --font-display: 'Arial Narrow', 'Roboto Condensed', 'Helvetica Neue Condensed', sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #1B1815;
+      --paper-raised: #24201B;
+      --ink: #F3EFE4;
+      --ink-soft: #D9D2C4;
+      --steel: #9C968A;
+      --steel-light: #6F6A60;
+      --rust: #E17148;
+      --rust-deep: #F08A5D;
+      --teal: #3FA79A;
+      --teal-soft: #5CC0B3;
+      --line: #33302A;
+      --line-strong: #45403758;
+      --good: #6FBF7A;
+      --warn: #E0A73F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1B1815;
+    --paper-raised: #24201B;
+    --ink: #F3EFE4;
+    --ink-soft: #D9D2C4;
+    --steel: #9C968A;
+    --steel-light: #6F6A60;
+    --rust: #E17148;
+    --rust-deep: #F08A5D;
+    --teal: #3FA79A;
+    --teal-soft: #5CC0B3;
+    --line: #33302A;
+    --line-strong: #453F37;
+    --good: #6FBF7A;
+    --warn: #E0A73F;
+  }
+  :root[data-theme="light"] {
+    --paper: #FBF9F4;
+    --paper-raised: #F3EFE4;
+    --ink: #1C1917;
+    --ink-soft: #3D3733;
+    --steel: #6B6862;
+    --steel-light: #948F86;
+    --rust: #C1502E;
+    --rust-deep: #9C3E22;
+    --teal: #0F4C4C;
+    --teal-soft: #16665F;
+    --line: #E1DACB;
+    --line-strong: #C9C0AB;
+    --good: #2F6B3A;
+    --warn: #B4791E;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body { font-size: 16px; line-height: 1.55; }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 0 18px; }
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display);
+    font-size: 21px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .brand .mark {
+    width: 26px; height: 26px;
+    background: var(--rust);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex; gap: 28px;
+    font-size: 14px;
+    color: var(--steel);
+  }
+  .nav-links a { text-decoration: none; }
+  .nav-links a:hover { color: var(--ink); }
+  @media (max-width: 780px) { .nav-links { display: none; } }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14.5px;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--rust); color: #FBF9F4; }
+  .btn-primary:hover { background: var(--rust-deep); }
+  .btn-ghost { border-color: var(--line-strong); color: var(--ink); background: transparent; }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 76px 0 64px;
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: color-mix(in srgb, var(--teal) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--teal) 30%, transparent);
+    padding: 5px 11px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 0.98;
+    margin-bottom: 22px;
+  }
+  .hero h1 .accent { color: var(--rust); }
+  .hero-sub {
+    font-size: 18.5px;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin-bottom: 30px;
+  }
+  .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 26px; }
+  .hero-note { font-size: 13.5px; color: var(--steel); }
+
+  /* Hero-Foto mit Typenschild-Overlay */
+  .hero-photo {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 24px 48px -20px rgba(28,25,23,0.35);
+  }
+  .hero-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .plate-mini {
+    position: absolute;
+    left: 20px; right: 20px; bottom: 20px;
+    background: rgba(28,25,23,0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 6px;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .plate-mini .plate-row {
+    display: flex; flex-direction: column; gap: 3px;
+    padding: 0; border: none;
+    font-family: var(--font-mono);
+  }
+  .plate-mini .k { color: rgba(251,249,244,0.6); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; }
+  .plate-mini .v { color: #FBF9F4; font-weight: 600; font-size: 13px; }
+  .plate-mini .v.rust { color: #E8825C; }
+  .plate-mini .v.teal { color: #5FD9CB; }
+  @media (max-width: 520px) {
+    .plate-mini { flex-direction: column; }
+  }
+
+  /* ---------- Section shell ---------- */
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  .section-head { max-width: 640px; margin-bottom: 42px; }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-head h2 { font-size: clamp(26px, 4vw, 38px); line-height: 1.05; margin-bottom: 14px; }
+  .section-head p { color: var(--steel); font-size: 16px; max-width: 56ch; }
+
+  /* ---------- Werkzeugbrett: feature grid ---------- */
+  .toolboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  @media (max-width: 860px) { .toolboard { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .toolboard { grid-template-columns: 1fr; } }
+  .tool-cell {
+    background: var(--paper);
+    padding: 26px 24px;
+    display: flex; flex-direction: column; gap: 10px;
+    min-height: 168px;
+  }
+  .tool-cell .glyph {
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .tool-cell h3 {
+    font-family: var(--font-body);
+    text-transform: none;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0;
+  }
+  .tool-cell p { font-size: 14px; color: var(--steel); margin: 0; }
+  .tool-cell .tag {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-top: auto;
+  }
+
+  /* ---------- Journey rail ---------- */
+  .journey {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  @media (max-width: 860px) { .journey { grid-template-columns: repeat(2, 1fr); gap: 28px; } }
+  @media (max-width: 560px) { .journey { grid-template-columns: 1fr; } }
+  .journey-step {
+    padding: 0 22px 0 0;
+    border-right: 1px dashed var(--line-strong);
+    position: relative;
+  }
+  .journey-step:last-child { border-right: none; padding-right: 0; }
+  @media (max-width: 860px) { .journey-step { border-right: none; padding-right: 0; } }
+  .journey-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--rust);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .journey-step h3 {
+    font-family: var(--font-body);
+    text-transform: none;
+    font-weight: 700;
+    font-size: 16.5px;
+    margin-bottom: 8px;
+  }
+  .journey-step p { font-size: 14px; color: var(--steel); margin: 0; }
+
+  /* ---------- Vergleichstabelle ---------- */
+  .compare-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; }
+  table.compare { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 640px; }
+  table.compare th, table.compare td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  table.compare thead th {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--steel);
+    background: var(--paper-raised);
+    font-weight: 600;
+  }
+  table.compare tbody tr:last-child td { border-bottom: none; }
+  table.compare td.feature { color: var(--ink-soft); font-weight: 500; }
+  table.compare td.us { font-weight: 700; color: var(--teal); background: color-mix(in srgb, var(--teal) 6%, transparent); }
+  .yes { color: var(--good); font-weight: 700; }
+  .no { color: var(--steel-light); }
+  .partial { color: var(--warn); font-weight: 600; }
+
+  /* ---------- Pricing ---------- */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 860px) { .pricing-grid { grid-template-columns: 1fr; } }
+  .price-card {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 30px 26px;
+    display: flex; flex-direction: column; gap: 18px;
+    background: var(--paper);
+  }
+  .price-card.featured {
+    border-color: var(--rust);
+    box-shadow: 0 0 0 1px var(--rust);
+    position: relative;
+  }
+  .price-card.featured::before {
+    content: "Meistgewählt";
+    position: absolute; top: -12px; left: 26px;
+    background: var(--rust); color: #FBF9F4;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+  .price-name { font-family: var(--font-display); font-size: 20px; letter-spacing: 0.02em; }
+  .price-amount { font-family: var(--font-display); font-size: 40px; line-height: 1; }
+  .price-amount span { font-family: var(--font-body); font-size: 14px; color: var(--steel); font-weight: 500; text-transform: none; }
+  .price-desc { font-size: 14px; color: var(--steel); margin: 0; }
+  .price-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+  .price-list li { display: flex; gap: 9px; align-items: flex-start; }
+  .price-list li::before { content: "＋"; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+
+  /* ---------- Photo strip ---------- */
+  .photo-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 780px) { .photo-strip { grid-template-columns: 1fr; } }
+  .photo-strip figure { margin: 0; }
+  .photo-strip img {
+    width: 100%; height: 220px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+  }
+  .photo-strip figcaption {
+    margin-top: 10px;
+    font-size: 13.5px;
+    color: var(--steel);
+  }
+
+  /* ---------- Voice callout ---------- */
+  .voice-block {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    padding: 48px 44px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 36px;
+    align-items: center;
+  }
+  @media (max-width: 780px) { .voice-block { grid-template-columns: 1fr; } }
+  .voice-block .section-label { color: #4FCFC0; }
+  .voice-block h2 { color: var(--paper); }
+  .voice-block p { color: rgba(251,249,244,0.72); font-size: 15.5px; max-width: 52ch; }
+  .waveform { display: flex; align-items: flex-end; gap: 4px; height: 64px; }
+  .waveform span {
+    display: block; width: 5px; background: var(--rust);
+    border-radius: 2px;
+    animation: wave 1.6s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { .waveform span { animation: none; height: 30px !important; } }
+  @keyframes wave { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 44px 0 56px;
+  }
+  .footer-grid { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .footer-note { font-size: 13px; color: var(--steel); max-width: 46ch; }
+  .theme-toggle {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em;
+    color: var(--steel);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: transparent;
+  }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink); }
+
+  .cta-final { text-align: center; padding: 88px 0 96px; }
+  .cta-final h2 { font-size: clamp(30px, 5vw, 46px); margin-bottom: 16px; }
+  .cta-final p { color: var(--steel); font-size: 16.5px; margin-bottom: 30px; }
+  .cta-final .hero-cta { justify-content: center; }
+
+  ::selection { background: var(--rust); color: #FBF9F4; }
+
+  [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  [data-reveal].in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar wrap">
+  <div class="brand"><span class="mark"></span> LernKraft</div>
+  <nav class="nav-links">
+    <a href="#features">Werkzeuge</a>
+    <a href="#journey">So läuft's ab</a>
+    <a href="#vergleich">Vergleich</a>
+    <a href="#preise">Preise</a>
+  </nav>
+  <div style="display:flex; gap:10px; align-items:center;">
+    <button class="theme-toggle" id="themeToggle">☀︎ Hell</button>
+    <a class="btn btn-primary" href="#preise">Kostenlos starten</a>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">● Für Unternehmen jeder Branche</span>
+      <h1>Wissen, das im Kopf von einer Person steckt, ist ein Risiko. <span class="accent">Nicht mehr, sobald es hier drin liegt.</span></h1>
+      <p class="hero-sub">
+        Neue Mitarbeitende einarbeiten, Abläufe dokumentieren, Wissen wiederauffindbar machen.
+        Mit einem Assistenten, den man auch einfach fragen kann. Kein IT-Projekt, kein
+        Rollout über Monate.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#preise">Kostenlos starten</a>
+        <a class="btn btn-ghost" href="#journey">Wie das funktioniert ↓</a>
+      </div>
+      <p class="hero-note">Setup in 15 Minuten · kein Sales-Call · Server stehen in Deutschland</p>
+    </div>
+    <div class="hero-photo" data-reveal>
+      <img src="images-comic/office-team.webp" alt="Team bespricht sich gemeinsam an einem Laptop im Büro" loading="eager" />
+      <div class="plate-mini">
+        <div class="plate-row"><span class="k">Zugang</span><span class="v teal">Ohne IT-Ticket</span></div>
+        <div class="plate-row"><span class="k">Wissen</span><span class="v">durchsuchbar</span></div>
+        <div class="plate-row"><span class="k">Setup</span><span class="v rust">≈ 15 Min.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-label">Was schon läuft</span>
+      <h2>Alles hier ist fertig gebaut, nicht angekündigt</h2>
+      <p>Wir zeigen nichts, was noch "bald kommt". Jedes dieser Werkzeuge steht heute und wurde mit echten Daten durchgetestet.</p>
+    </div>
+    <div class="toolboard">
+      <div class="tool-cell" data-reveal>
+        <div class="glyph">🎬</div>
+        <h3>Video hoch, Kurs fertig</h3>
+        <p>Eine Kollegin nimmt einen Prozess auf. Die KI macht daraus Transkript, Kapitel und ein Quiz, ganz von allein.</p>
+        <span class="tag">KI-Wizard</span>
+      </div>
+      <div class="tool-cell" data-reveal>
+        <div class="glyph">📋</div>
+        <h3>Pflichtschulungen mit Nachweis</h3>
+        <p>Vom Datenschutz bis zur KI-Kompetenzschulung nach EU AI Act. Abschluss und Ergebnis landen automatisch im PDF.</p>
+        <span class="tag">Rechtssicher dokumentiert</span>
+      </div>
+      <div class="tool-cell" data-reveal>
+        <div class="glyph">🔍</div>
+        <h3>Fragen, statt suchen</h3>
+        <p>"Wie stelle ich einen Urlaubsantrag?" Der Assistent durchsucht das interne Wissen und antwortet mit Quelle.</p>
+        <span class="tag">Kein Ordner-Wühlen</span>
+      </div>
+      <div class="tool-cell" data-reveal>
+        <div class="glyph">🧑‍🤝‍🧑</div>
+        <h3>Preboarding + Buddy</h3>
+        <p>Vor Tag 1 schon vorbereiten. Danach fragen wir an Tag 7, 30, 60 und 90 nach, wie's läuft, und ein Buddy sieht den Stand.</p>
+        <span class="tag">Onboarding-Journey</span>
+      </div>
+      <div class="tool-cell" data-reveal>
+        <div class="glyph">📊</div>
+        <h3>Fortschritt auf einen Blick</h3>
+        <p>Wer hat wie viel gesehen, welches Quiz bestanden, welche Schulung ist fällig. Pro Mitarbeiter, nicht nur als Durchschnitt.</p>
+        <span class="tag">Führungskräfte-Sicht</span>
+      </div>
+      <div class="tool-cell" data-reveal>
+        <div class="glyph">💳</div>
+        <h3>Kurse & Produkte verkaufen</h3>
+        <p>Videokurse oder Downloads über Stripe verkaufen. Auch an Leute, die noch gar kein Kundenkonto bei dir haben.</p>
+        <span class="tag">Commerce eingebaut</span>
+      </div>
+      <div class="tool-cell" data-reveal>
+        <div class="glyph">📝</div>
+        <h3>Abgaben, KI-bewertet</h3>
+        <p>Aufgabe stellen, Mitarbeiter antwortet per Text, Datei oder Video. Textantworten bewertet die KI sofort.</p>
+        <span class="tag">Statt Upload-Postfach</span>
+      </div>
+      <div class="tool-cell" data-reveal>
+        <div class="glyph">🎙️</div>
+        <h3>In-App aufnehmen</h3>
+        <p>Kamera oder Bildschirm direkt im Browser aufzeichnen. Kein Schnittprogramm, kein Umweg über YouTube.</p>
+        <span class="tag">Recorder eingebaut</span>
+      </div>
+      <div class="tool-cell" data-reveal>
+        <div class="glyph">✒️</div>
+        <h3>Richtlinien lesen & bestätigen</h3>
+        <p>Datenschutzrichtlinie oder Arbeitsanweisung hochladen, Mitarbeiter bestätigt digital. Nachweis liegt automatisch im Archiv.</p>
+        <span class="tag">Read &amp; Sign</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-label">Der Weg vom Upload zum fertigen Onboarding</span>
+      <h2>Vier Schritte, kein Bastelaufwand</h2>
+    </div>
+    <div class="journey">
+      <div class="journey-step" data-reveal>
+        <div class="journey-num">01 · Setup</div>
+        <h3>Branche wählen</h3>
+        <p>Vorlage für die eigene Branche auswählen. Lernpfad, Checkliste und Pflichtschulungen sind sofort da.</p>
+      </div>
+      <div class="journey-step" data-reveal>
+        <div class="journey-num">02 · Inhalt</div>
+        <h3>Video oder Diktat</h3>
+        <p>Prozess filmen oder einfach einsprechen. Die KI macht daraus Kapitel, Schritte und ein Quiz zum Prüfen.</p>
+      </div>
+      <div class="journey-step" data-reveal>
+        <div class="journey-num">03 · Zugang</div>
+        <h3>Link verteilen</h3>
+        <p>Neue Mitarbeitende bekommen einen Link, kein separates Firmenkonto nötig. Login funktioniert vom ersten Tag an.</p>
+      </div>
+      <div class="journey-step" data-reveal>
+        <div class="journey-num">04 · Nachweis</div>
+        <h3>Automatisch dokumentiert</h3>
+        <p>Fortschritt, Quiz-Ergebnis und Schulungsbestätigung landen als PDF. Fertig für die nächste Prüfung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="photo-strip">
+      <figure data-reveal>
+        <img src="images-comic/office-onboarding.webp" alt="Neue Mitarbeiterin wird an ihrem ersten Tag von einer Kollegin eingearbeitet" loading="lazy" />
+        <figcaption>Der erste Tag, ohne dass jemand improvisieren muss</figcaption>
+      </figure>
+      <figure data-reveal>
+        <img src="images-comic/office-typing.webp" alt="Person tippt auf einem Laptop im Büro" loading="lazy" />
+        <figcaption>Eine Frage stellen, statt fünf Kollegen anzuschreiben</figcaption>
+      </figure>
+      <figure data-reveal>
+        <img src="images-comic/hw-mentor.webp" alt="Erfahrene Kollegin erklärt einer neuen Mitarbeiterin etwas auf einem Tablet" loading="lazy" />
+        <figcaption>Wer wie weit ist, sieht die Führungskraft auf einen Blick</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="voice-block" data-reveal>
+      <div>
+        <span class="section-label">Was uns von den anderen unterscheidet</span>
+        <h2>Man kann ihn auch einfach fragen</h2>
+        <p>
+          Die neue Kollegin muss nicht mehr fünf Leute anschreiben, bis sie eine Antwort hat.
+          Sie fragt: "Wie stelle ich einen Urlaubsantrag?" oder "Wo finde ich die Reisekosten-
+          richtlinie?" Der Assistent durchsucht die hinterlegten Unterlagen und antwortet mit
+          Quelle, samt Sprung an die passende Stelle im Video.
+        </p>
+      </div>
+      <div class="waveform" aria-hidden="true">
+        <span style="height:22px; animation-delay:0s;"></span>
+        <span style="height:48px; animation-delay:0.1s;"></span>
+        <span style="height:34px; animation-delay:0.2s;"></span>
+        <span style="height:58px; animation-delay:0.3s;"></span>
+        <span style="height:26px; animation-delay:0.4s;"></span>
+        <span style="height:44px; animation-delay:0.5s;"></span>
+        <span style="height:20px; animation-delay:0.6s;"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vergleich">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-label">Ehrlich verglichen</span>
+      <h2>Was klassische HR-Tools können, und was ihnen fehlt</h2>
+      <p>HR-Suiten verwalten Personalakten gut. Onboarding-Inhalte und Wissenssuche sind dort meist Nebensache, wenn überhaupt vorhanden.</p>
+    </div>
+    <div class="compare-wrap">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th>Funktion</th>
+            <th>LernKraft</th>
+            <th>HR-Suiten</th>
+            <th>Interner Wiki/Ordner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature">Branchen-Vorlagen für Onboarding</td>
+            <td class="us yes">✓ sofort startklar</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+          </tr>
+          <tr>
+            <td class="feature">Pflichtschulungen mit PDF-Nachweis</td>
+            <td class="us yes">✓</td>
+            <td class="partial">teilweise</td>
+            <td class="no">—</td>
+          </tr>
+          <tr>
+            <td class="feature">KI-Assistent auf eigenes Wissen</td>
+            <td class="us yes">✓</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+          </tr>
+          <tr>
+            <td class="feature">Video direkt zu Kurs verarbeiten</td>
+            <td class="us yes">✓ automatisch</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+          </tr>
+          <tr>
+            <td class="feature">Setup ohne IT-Abteilung</td>
+            <td class="us yes">✓ ≈ 15 Minuten</td>
+            <td class="no">Wochen bis Monate</td>
+            <td class="partial">unstrukturiert</td>
+          </tr>
+          <tr>
+            <td class="feature">Kursverkauf integriert</td>
+            <td class="us yes">✓ Stripe</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+          </tr>
+          <tr>
+            <td class="feature">Einstiegspreis</td>
+            <td class="us yes">ab 49 €/Monat</td>
+            <td class="partial">meist pro Kopf</td>
+            <td class="yes">rechnerisch "kostenlos"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="preise">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-label">Klar statt versteckt</span>
+      <h2>Ein Preis pro Betrieb, keine Kopf-Gebühren</h2>
+      <p>Kein Sales-Call, kein Preis auf Anfrage. Monatlich kündbar, kostenlos testbar.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card" data-reveal>
+        <div class="price-name">Starter</div>
+        <div class="price-amount">49 € <span>/ Monat</span></div>
+        <p class="price-desc">Für den Einstieg ins digitale Onboarding.</p>
+        <ul class="price-list">
+          <li>Onboarding &amp; Prozess-Dokumentation</li>
+          <li>Branchen-Vorlagen zum Import</li>
+          <li>Read &amp; Sign für Richtlinien</li>
+          <li>Zugang ohne separates Firmenkonto</li>
+        </ul>
+      </div>
+      <div class="price-card featured" data-reveal>
+        <div class="price-name">Business</div>
+        <div class="price-amount">99 € <span>/ Monat</span></div>
+        <p class="price-desc">Mit Pflichtschulungs-Nachweis und KI-Assistent.</p>
+        <ul class="price-list">
+          <li>Alles aus Starter</li>
+          <li>Pflichtschulungen mit PDF-Nachweis</li>
+          <li>KI-Assistent auf eigenes Wissen</li>
+          <li>Fortschritts-Monitoring fürs Team</li>
+        </ul>
+      </div>
+      <div class="price-card" data-reveal>
+        <div class="price-name">Verkauf</div>
+        <div class="price-amount">149 € <span>/ Monat</span></div>
+        <p class="price-desc">Wenn Onboarding zum Umsatz werden soll.</p>
+        <ul class="price-list">
+          <li>Alles aus Business</li>
+          <li>Kurse &amp; digitale Produkte verkaufen</li>
+          <li>Stripe-Checkout, auch ohne Kundenkonto</li>
+          <li>Gutscheine &amp; Verkaufs-Dashboard</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" style="border-top: 1px solid var(--line);">
+  <div class="wrap">
+    <h2>Die nächste neue Person kann besser starten.</h2>
+    <p>15 Minuten Setup. Kein Anruf bei einem Vertriebler nötig.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#preise">Kostenlos starten</a>
+      <a class="btn btn-ghost" href="#features">Werkzeuge ansehen</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand" style="margin-bottom: 10px;"><span class="mark"></span> LernKraft</div>
+      <p class="footer-note">Onboarding, Wissen und Prozesse für Unternehmen, die wachsen wollen. Made &amp; gehostet in Deutschland.</p>
+    </div>
+    <p class="footer-note">© 2026 LernKraft · Ein Produkt von KlassenMedia</p>
+  </div>
+</footer>
+
+<script>
+  var root = document.documentElement;
+  var toggle = document.getElementById('themeToggle');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function currentIsDark() {
+    var attr = root.getAttribute('data-theme');
+    if (attr === 'dark') return true;
+    if (attr === 'light') return false;
+    return mq.matches;
+  }
+  function syncLabel() {
+    toggle.textContent = currentIsDark() ? '☾ Dunkel' : '☀︎ Hell';
+  }
+  toggle.addEventListener('click', function () {
+    root.setAttribute('data-theme', currentIsDark() ? 'light' : 'dark');
+    syncLabel();
+  });
+  syncLabel();
+
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
+
+    // Zusatz zum Observer: Anker-Sprünge (Nav-Klick auf #features etc.) oder ein
+    // Browser, der beim Laden schon mitten auf der Seite steht, durchqueren den
+    // Viewport nie und lösen den Observer nicht aus. Dieser Check läuft bei jedem
+    // Scroll-Stopp und beim Laden einmal nach, damit nichts dauerhaft unsichtbar bleibt.
+    function revealVisible() {
+      document.querySelectorAll('[data-reveal]:not(.in)').forEach(function (el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('in');
+        }
+      });
+    }
+    var scrollTimer = null;
+    window.addEventListener('scroll', function () {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(revealVisible, 120);
+    }, { passive: true });
+    // Kurzes Polling zusätzlich zum Scroll-Event, falls ein Sprung (Anker-Klick,
+    // History-Navigation) kein scroll-Event auslöst.
+    var pollCount = 0;
+    var pollTimer = setInterval(function () {
+      revealVisible();
+      pollCount++;
+      if (pollCount > 20) clearInterval(pollTimer);
+    }, 150);
+  }
+</script>
+</body>
+</html>
