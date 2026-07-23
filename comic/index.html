@@ -118,8 +118,12 @@
   /* ---------- Top bar ---------- */
   .topbar {
     display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
     padding: 22px 0;
     border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 640px) {
+    .topbar { padding: 16px 0; }
   }
   .brand {
     display: flex; align-items: center; gap: 10px;
@@ -128,11 +132,17 @@
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }
+  @media (max-width: 480px) {
+    .brand { font-size: 16px; gap: 7px; }
+  }
   .brand .mark {
     width: 26px; height: 26px;
     background: var(--rust);
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     flex-shrink: 0;
+  }
+  @media (max-width: 480px) {
+    .brand .mark { width: 19px; height: 19px; }
   }
   .nav-links {
     display: flex; gap: 28px;
@@ -153,6 +163,19 @@
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
+  }
+  @media (max-width: 480px) {
+    .topbar .btn { padding: 8px 13px; font-size: 12.5px; }
+  }
+  .cta-short { display: none; }
+  @media (max-width: 400px) {
+    .cta-full { display: none; }
+    .cta-short { display: inline; }
+  }
+  @media (max-width: 360px) {
+    .theme-toggle-label { font-size: 0; }
+    .theme-toggle-label::before { content: "☀︎"; font-size: 13px; }
+    .theme-toggle { padding: 6px 8px; }
   }
   .btn-primary { background: var(--rust); color: #FBF9F4; }
   .btn-primary:hover { background: var(--rust-deep); }
@@ -218,21 +241,48 @@
     object-fit: cover;
   }
   .plate-mini {
-    margin-top: 16px;
+    margin-top: 24px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 18px;
+    perspective: 800px;
   }
   .plate-mini .plate-row {
-    background: var(--paper-raised);
+    position: relative;
+    background: linear-gradient(160deg, var(--paper-raised) 0%, var(--paper) 78%);
     border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 12px 14px;
-    display: flex; flex-direction: column; gap: 4px;
+    border-top: none;
+    border-radius: 12px;
+    padding: 20px 18px 18px;
+    display: flex; flex-direction: column; gap: 6px;
     font-family: var(--font-mono);
+    box-shadow:
+      0 2px 2px rgba(28,25,23,0.04),
+      0 18px 30px -14px rgba(28,25,23,0.28),
+      inset 0 1px 0 rgba(255,255,255,0.65);
+    transform: translateY(0) rotateX(0deg);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
   }
-  .plate-mini .k { color: var(--steel); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; }
-  .plate-mini .v { color: var(--ink); font-weight: 600; font-size: 13px; }
+  .plate-mini .plate-row::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    border-radius: 12px 12px 0 0;
+    background: var(--steel-light);
+  }
+  .plate-mini .plate-row:nth-child(1)::before { background: var(--teal); }
+  .plate-mini .plate-row:nth-child(2)::before { background: var(--steel); }
+  .plate-mini .plate-row:nth-child(3)::before { background: var(--rust); }
+  .plate-mini .plate-row:hover {
+    transform: translateY(-5px) rotateX(4deg);
+    box-shadow:
+      0 2px 2px rgba(28,25,23,0.05),
+      0 26px 40px -16px rgba(28,25,23,0.36),
+      inset 0 1px 0 rgba(255,255,255,0.75);
+  }
+  .plate-mini .k { color: var(--steel); text-transform: uppercase; letter-spacing: 0.07em; font-size: 10.5px; }
+  .plate-mini .v { color: var(--ink); font-weight: 700; font-size: 15px; }
   .plate-mini .v.rust { color: var(--rust); }
   .plate-mini .v.teal { color: var(--teal); }
   @media (max-width: 520px) {
@@ -448,8 +498,13 @@
     padding: 6px 12px;
     cursor: pointer;
     background: transparent;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .theme-toggle:hover { color: var(--ink); border-color: var(--ink); }
+  @media (max-width: 480px) {
+    .theme-toggle { padding: 5px 9px; font-size: 11px; }
+  }
 
   .cta-final { text-align: center; padding: 88px 0 96px; }
   .cta-final h2 { font-size: clamp(30px, 5vw, 46px); margin-bottom: 16px; }
@@ -475,9 +530,9 @@
     <a href="#vergleich">Vergleich</a>
     <a href="#preise">Preise</a>
   </nav>
-  <div style="display:flex; gap:10px; align-items:center;">
-    <button class="theme-toggle" id="themeToggle">☀︎ Hell</button>
-    <a class="btn btn-primary" href="#preise">Kostenlos starten</a>
+  <div style="display:flex; gap:8px; align-items:center;">
+    <button class="theme-toggle" id="themeToggle"><span class="theme-toggle-label">☀︎ Hell</span></button>
+    <a class="btn btn-primary" href="#preise"><span class="cta-full">Kostenlos starten</span><span class="cta-short">Start</span></a>
   </div>
 </div>
 
@@ -796,7 +851,8 @@
     return mq.matches;
   }
   function syncLabel() {
-    toggle.textContent = currentIsDark() ? '☾ Dunkel' : '☀︎ Hell';
+    var label = toggle.querySelector('.theme-toggle-label') || toggle;
+    label.textContent = currentIsDark() ? '☾ Dunkel' : '☀︎ Hell';
   }
   toggle.addEventListener('click', function () {
     root.setAttribute('data-theme', currentIsDark() ? 'light' : 'dark');
